@@ -92,6 +92,7 @@ export default class DataStore {
 
         if(delta != null) {
             this.data =  {
+                ...this.data,
                 ...delta
             };
         }
