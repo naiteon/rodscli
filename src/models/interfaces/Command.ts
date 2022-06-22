@@ -1,3 +1,6 @@
+import DataStore from "../DataStore";
+
 export default interface Command {
-    execute(payload: string): void
+    validate(payload: string[]): boolean;
+    execute(payload: string[], ds: DataStore): void;
 }

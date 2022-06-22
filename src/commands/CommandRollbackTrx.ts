@@ -1,13 +1,13 @@
 import Command from '../models/interfaces/Command';
 import DataStore from '../models/DataStore';
 
-export default class CommandGet implements Command {
+export default class CommandRollback implements Command {
 
     validate(payload: string[]): boolean {
-        return payload.length == 1;
+        return true;
     }
 
     execute(payload: string[], ds: DataStore): void {
-        console.log(ds.getEntry(payload[0]));
+        ds.rollbackTransaction();
     }
 }
