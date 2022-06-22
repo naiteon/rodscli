@@ -48,7 +48,7 @@ export default class DataStore {
     getEntry(index: string): any|null {
         let ref = this.getCurrentContext();
 
-        return ref[index] || null;
+        return (ref[index] || this.data[index]) || null;
     }
 
     unsetEntry(index: string): void {
@@ -66,7 +66,19 @@ export default class DataStore {
     }
 
     numEqualTo(value: number): number {
-        let ref = this.getCurrentContext();
+        let ref = {};
+
+        if(this.transactions.at(-1) === undefined) {
+            ref = {
+                ...this.data
+            };
+        } else {
+            ref = {
+                ...this.data,
+                ...this.transactions.at(-1)
+            };
+        }
+
         let result = 0;
 
         let found = Object.values(ref).filter(element => element == value);
