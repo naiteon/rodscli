@@ -79,19 +79,29 @@ export default class DataStore {
     }
 
     commitTransaction(): void {
-        if(this.transactions.length > 0) {
-            this.data =  {
-                ...this.data,
-                ...this.transactions.at(-1)
-            };
 
-            this.transactions.splice(-1, 1);
+        let delta: Entries|null = null;
+
+        while(this.transactions.length > 0) {
+            delta = {
+                ...this.transactions.at(0)
+            }
+            
+            this.transactions.splice(0, 1);   
+        }
+
+        if(delta != null) {
+            this.data =  {
+                ...delta
+            };
         }
     }
 
     rollbackTransaction(): void {
         if(this.transactions.length > 0) {
             this.transactions.splice(-1, 1);
+        } else {
+            throw "NO TRANSACTION";
         }
     }
 
