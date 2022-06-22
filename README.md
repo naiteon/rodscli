@@ -5,7 +5,10 @@
 - yarn 1+
 
 ## Building
-```yarn build```
+```
+yarn
+yarn build
+```
 
 ## Running
 ```yarn start```
